@@ -7,6 +7,9 @@
 </p>
 
 # FARMING GRASS SEASON 2 WITH VPS
+## Fitur Bot
+- Auto Run 24 Jam
+- Support Proxy & Non Proxy
 ## Register Grass Account
 - Signup [Here](https://s.id/getgrass)
 - Register with email & verify
