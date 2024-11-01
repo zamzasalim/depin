@@ -1,6 +1,7 @@
-# Import modul untuk tampilan warna dan ASCII-art
+
 from colorama import Fore, Style, init
 import asyncio
+import os
 import random
 import ssl
 import json
@@ -13,10 +14,10 @@ from websockets_proxy import Proxy, proxy_connect
 from fake_useragent import UserAgent
 import websockets
 
-# Inisialisasi colorama
+
 init(autoreset=True)
 
-# Tampilkan judul ASCII-art dengan warna cyan tebal
+
 print(Fore.CYAN + Style.BRIGHT + "   █████████   █████ ███████████   ██████████   ███████████      ███████    ███████████       █████████    █████████    █████████")
 print(Fore.CYAN + Style.BRIGHT + "  ███░░░░░███ ░░███ ░░███░░░░░███ ░░███░░░░███ ░░███░░░░░███   ███░░░░░███ ░░███░░░░░███     ███░░░░░███  ███░░░░░███  ███░░░░░███")
 print(Fore.CYAN + Style.BRIGHT + " ░███    ░███  ░███  ░███    ░███  ░███   ░░███ ░███    ░███  ███     ░░███ ░███    ░███    ░███    ░███ ░███    ░░░  ███     ░░░")
@@ -31,12 +32,12 @@ print(Fore.CYAN + Style.BRIGHT + "    Telegram Channel : @airdropasc")
 print(Fore.CYAN + Style.BRIGHT + "    Telegram Group   : @autosultan_group")
 print(Fore.CYAN + Style.BRIGHT + "==============================================")
 
-# Fungsi-fungsi utama Anda
+
 user_agent = UserAgent()
 random_user_agent = user_agent.random
 
 async def connect_to_wss(socks5_proxy, user_id):
-    device_id = str(uuid.uuid3(uuid.NAMESPACE_DNS, socks5_proxy))
+    device_id = str(uuid.uuid3(uuid.NAMESPACE_DNS, socks5_proxy)) if socks5_proxy else "NoProxyDeviceID"
     logger.info(device_id)
     while True:
         try:
@@ -49,8 +50,7 @@ async def connect_to_wss(socks5_proxy, user_id):
             ssl_context.check_hostname = False
             ssl_context.verify_mode = ssl.CERT_NONE
             uri = "wss://proxy.wynd.network:4650"
-            server_hostname = "proxy.wynd.network"
-            proxy = Proxy.from_url(socks5_proxy)
+            proxy = Proxy.from_url(socks5_proxy) if socks5_proxy else None
 
             async with websockets.connect(uri, ssl=ssl_context, extra_headers=custom_headers) as websocket:
                 logger.info("Connected to websocket")
@@ -97,10 +97,22 @@ async def connect_to_wss(socks5_proxy, user_id):
 
 async def main():
     _user_id = input('Please Enter your user ID: ')
-    with open('proxy.txt', 'r') as file:
-        local_proxies = file.read().splitlines()
-    tasks = [asyncio.ensure_future(connect_to_wss(i, _user_id)) for i in local_proxies]
-    await asyncio.gather(*tasks)
+
+    
+    if os.path.exists('proxy.txt'):
+        with open('proxy.txt', 'r') as file:
+            local_proxies = file.read().splitlines()
+    else:
+        local_proxies = []
+
+    
+    if not local_proxies:
+        print(Fore.YELLOW + "Tidak ada proxy ditemukan. Menghubungkan tanpa proxy...")
+        await connect_to_wss(None, _user_id)
+    else:
+        
+        tasks = [asyncio.ensure_future(connect_to_wss(proxy, _user_id)) for proxy in local_proxies]
+        await asyncio.gather(*tasks)
 
 if __name__ == '__main__':
     asyncio.run(main())
