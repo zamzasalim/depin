@@ -42,7 +42,7 @@ ufw status
 git clone https://github.com/zamzasalim/depin.git
 ```
 ```
-cd teneo
+cd depin/teneo
 ```
 ```
 npm install
