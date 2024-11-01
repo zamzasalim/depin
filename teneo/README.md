@@ -13,10 +13,7 @@
 - **Auto Ping (setiap 15 menit)**
 - **Support Proxy**
 ## Register Teneo
-- **Download [Ekstension](https://cdn.teneo.pro/teneo-community-node-v0.2.zip)**
-- **Open Browser you use**
-- **Activate Developer Mode**
-- **Extract File Ekstension & Import Ekstension to your browser**
+- **Download [Ekstension](https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm)**
 - **Open Ektension**
 - **Create Account with email & verif email**
 - **Submit Code `Yua2i` (get 2500 point)**
