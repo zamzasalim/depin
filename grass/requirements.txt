@@ -4,3 +4,4 @@ loguru
 fake_useragent
 websockets_proxy
 websockets
+colorama
