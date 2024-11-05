@@ -20,3 +20,8 @@ bash <(curl -s https://data.zamzasalim.xyz/file/uploads/titan-network.sh)
 <p align="center">
   <img height="200" height="auto" src="https://github.com/zamzasalim/depin/blob/main/titan-network/photo_2024-11-05_22-17-17.jpg">
 </p>
+
+## Delete (if already ended)
+```
+docker stop quizzical_antonelli && docker rm quizzical_antonelli
+```
