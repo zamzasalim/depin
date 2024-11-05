@@ -23,5 +23,5 @@ bash <(curl -s https://data.zamzasalim.xyz/file/uploads/titan-network.sh)
 
 ## Delete (if already ended)
 ```
-docker stop quizzical_antonelli && docker rm quizzical_antonelli
+rm -rf /root/.titanedge && docker stop quizzical_antonelli && docker rm quizzical_antonelli
 ```
