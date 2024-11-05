@@ -47,9 +47,12 @@ sudo ufw status
 ```
 git clone https://github.com/zamzasalim/depin.git
 ```
-## Submit Proxy
+## Install Depency & Submit Proxy
 ```
 cd depin/grass
+```
+```
+python3 -m pip install -r requirements.txt
 ```
 ```
 nano proxy.txt
