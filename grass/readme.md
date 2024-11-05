@@ -6,7 +6,7 @@
   <img height="300" height="auto" src="https://user-images.githubusercontent.com/109174478/209359981-dc19b4bf-854d-4a2a-b803-2547a7fa43f2.jpg">
 </p>
 
-# FARMING GRASS SEASON 2 WITH VPS
+# FARMING GRASS SEASON 2 WITH VPS & TERMUX
 ## Fitur Bot
 - Auto Run 24 Jam
 - Only Proxy
@@ -54,20 +54,41 @@ sudo ufw status
 git clone https://github.com/zamzasalim/depin.git
 ```
 ## Install Depency & Submit Proxy
-```
-cd depin/grass
-```
-```
-python3 -m pip install -r requirements.txt
-```
-```
-nano proxy.txt
-```
-## Run Bot use Screen
-```
-screen -S grass
-```
-```
-python3 main.py
-```
-**Kalo udah jalan tinggal CTRL+AD**
+- **VPS**
+  ```
+  cd depin/grass
+  ```
+  ```
+  python3 -m pip install -r requirements.txt
+  ```
+  ```
+  nano proxy.txt
+  ```
+- **TERMUX**
+  ```
+  cd depin/grass
+  ```
+  ```
+  python -m pip install -r requirements.txt
+  ```
+  ```
+  nano proxy.txt
+  ```
+## Run Bot
+- **VPS (use screen)**
+  ```
+  screen -S grass
+  ```
+  ```
+  python3 main.py
+  ```
+  **Kalo udah jalan tinggal CTRL+AD**
+- **TERMUX**
+  ```
+  python main.py
+  ```
+
+  <tr>
+    <td><img src="https://github.com/zamzasalim/depin/blob/main/grass/xxx.png" alt="Gambar 1" width="1000"/></td>
+  </tr>
+</table>
