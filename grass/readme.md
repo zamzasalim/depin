@@ -47,16 +47,23 @@ sudo ufw status
 ```
 git clone https://github.com/zamzasalim/depin.git
 ```
-## Run Grass on VPS with Screen
+## Submit Proxy
 ```
 cd depin/grass
 ```
 ```
-python3 -m pip install -r requirements.txt
+nano proxy.txt
 ```
-```
-screen -S grass
-```
-```
-python3 main.py
-```
+## Run Bot
+- **Desktop**
+  ```
+  python3 grass_desktop.py
+  ```
+- **Extensi**
+  ```
+  python3 grass_ext.py
+  ```
+- **Node**
+  ```
+  python3 grass_node.py
+  ```
