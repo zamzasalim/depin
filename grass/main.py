@@ -9,6 +9,29 @@ import shutil
 from loguru import logger
 from websockets_proxy import Proxy, proxy_connect
 from fake_useragent import UserAgent
+from colorama import Fore, Style, init
+
+# Inisialisasi colorama
+init(autoreset=True)
+
+# Menambahkan judul Airdrop ASC dengan warna biru
+ascii_art = f"""
+   {Fore.BLUE}█████████   █████ ███████████   ██████████   ███████████      ███████    ███████████       █████████    █████████    █████████
+  ███░░░░░███ ░░███ ░░███░░░░░███ ░░███░░░░███ ░░███░░░░░███   ███░░░░░███ ░░███░░░░░███     ███░░░░░███  ███░░░░░███  ███░░░░░███
+ ░███    ░███  ░███  ░███    ░███  ░███   ░░███ ░███    ░███  ███     ░░███ ░███    ░███    ░███    ░███ ░███    ░░░  ███     ░░░
+ ░███████████  ░███  ░██████████   ░███    ░███ ░██████████  ░███      ░███ ░██████████     ░███████████ ░░█████████ ░███         
+ ░███░░░░░███  ░███  ░███░░░░░███  ░███    ░███ ░███░░░░░███ ░███      ░███ ░███░░░░░░      ░███░░░░░███  ░░░░░░░░███░███         
+ ░███    ░███  ░███  ░███    ░███  ░███    ███  ░███    ░███ ░░███     ███  ░███            ░███    ░███  ███    ░███░░███     ███
+ █████   █████ █████ █████   █████ ██████████   █████   █████ ░░░███████░   █████           █████   █████░░█████████  ░░█████████
+ ░░░░░   ░░░░░ ░░░░░ ░░░░░   ░░░░░ ░░░░░░░░░░   ░░░░░   ░░░░░    ░░░░░░░    ░░░░░           ░░░░░   ░░░░░  ░░░░░░░░░    ░░░░░░░░░  
+==============================================
+    BOT              : GRASS
+    Telegram Channel : @airdropasc               
+    Telegram Group   : @autosultan_group         
+==============================================
+"""
+
+print(ascii_art)
 
 user_agent = UserAgent()
 random_user_agent = user_agent.chrome
@@ -26,9 +49,8 @@ async def connect_to_wss(socks5_proxy, user_id):
             ssl_context = ssl.create_default_context()
             ssl_context.check_hostname = False
             ssl_context.verify_mode = ssl.CERT_NONE
-            urilist = ["wss://proxy.wynd.network:4444/","wss://proxy.wynd.network:4650/"]
+            urilist = ["wss://proxy.wynd.network:4444/", "wss://proxy.wynd.network:4650/"]
             uri = random.choice(urilist)
-            #uri = "wss://proxy.wynd.network:4650/"
             server_hostname = "proxy.wynd.network"
             proxy = Proxy.from_url(socks5_proxy)
             async with proxy_connect(uri, proxy=proxy, ssl=ssl_context, server_hostname=server_hostname,
