@@ -9,7 +9,7 @@
 # FARMING GRASS SEASON 2 WITH VPS
 ## Fitur Bot
 - Auto Run 24 Jam
-- Support Proxy & Non Proxy
+- Only Proxy
 ## Register Grass Account
 - Signup [Here](https://s.id/getgrass)
 - Register with email & verify
@@ -20,20 +20,19 @@
 - Pilih Menu Aplication
 - Local Storage
 - userid sebelah kanan salin & paste on notepad
+## How to Buy Proxy
+- Signup : [Here](https://app.proxy-cheap.com/r/DPyGQ5)
+- Signup with Google
+- Deposit use crypto
+- Buy Static Proxy > Country Singapore
+- Recommended Buy 1 Years
+- Done
 ## Install Python & Screen (Kalo belum punya)
 ```
 sudo apt update
-sudo apt install -y wget build-essential libssl-dev zlib1g-dev libbz2-dev \
-    libreadline-dev libsqlite3-dev curl libncursesw5-dev xz-utils tk-dev \
-    libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev
-```
-```
-wget https://www.python.org/ftp/python/3.13.0/Python-3.13.0.tgz
-tar -xf Python-3.13.0.tgz
-cd Python-3.13.0
-./configure --enable-optimizations
-make -j $(nproc)
-sudo make altinstall
+sudo apt upgrade -y
+sudo apt install python3 -y
+sudo apt install python3-pip -y
 ```
 ```
 apt-get install screen
@@ -57,16 +56,11 @@ python3 -m pip install -r requirements.txt
 ```
 nano proxy.txt
 ```
-## Run Bot
-- **Desktop**
-  ```
-  python3 grass_desktop.py
-  ```
-- **Extensi**
-  ```
-  python3 grass_ext.py
-  ```
-- **Node**
-  ```
-  python3 grass_node.py
-  ```
+## Run Bot use Screen
+```
+screen -S grass
+```
+```
+python3 main.py
+```
+**Kalo udah jalan tinggal CTRL+AD**
