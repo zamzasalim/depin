@@ -27,6 +27,13 @@
 - Buy Static Proxy > Country Singapore
 - Recommended Buy 1 Years
 - Done
+  <table>
+  <tr>
+    <td><img src="https://github.com/zamzasalim/depin/blob/main/grass/x.png" alt="Gambar 1" width="300"/></td>
+    <td><img src="https://github.com/zamzasalim/depin/blob/main/grass/xx.png" alt="Gambar 2" width="300"/></td>
+  </tr>
+</table>
+
 ## Install Python & Screen (Kalo belum punya)
 ```
 sudo apt update
