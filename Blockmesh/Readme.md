@@ -23,3 +23,19 @@
   ```
   bash <(curl -s https://data.zamzasalim.xyz/file/uploads/blockmesh.sh)
   ```
+- Cek Logs
+  ```
+  sudo journalctl -u blockmesh.service -f
+  ```
+- <p align="center">
+  <img height="200" height="auto" src="https://github.com/zamzasalim/depin/blob/main/Blockmesh/photo_2024-11-10_15-55-57.jpg">
+</p>
+
+## Delete Node (jika sudah tidak digunakan)
+```
+sudo systemctl stop blockmesh
+sudo systemctl disable blockmesh
+sudo rm /etc/systemd/system/blockmesh.service
+sudo systemctl daemon-reload
+rm -rf ~/blockmesh
+```
