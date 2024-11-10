@@ -27,6 +27,7 @@ let potentialPoints = 0;
 let countdown = "Calculating...";
 let pointsTotal = 0;
 let pointsToday = 0;
+let retryDelay = 1000;
 
 const authorization = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag";
 const apikey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imlra25uZ3JneHV4Z2pocGxicGV5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjU0MzgxNTAsImV4cCI6MjA0MTAxNDE1MH0.DRAvf8nH1ojnJBc3rD_Nw6t1AV8X_g6gmY_HByG2Mag";
@@ -94,6 +95,8 @@ async function connectWebSocket(userId, proxy) {
     socket = null;
     console.log("WebSocket disconnected");
     stopPinging();
+    setTimeout(() => connectWebSocket(userId, proxy), retryDelay);
+    retryDelay = Math.min(retryDelay * 2, 30000);
   };
 
   socket.onerror = (error) => {
@@ -177,9 +180,29 @@ async function updateCountdownAndPoints() {
   await setLocalStorage({ potentialPoints, countdown });
 }
 
+
+async function updateReferralCode(userId) {
+  const profileUrl = `https://ikknngrgxuxgjhplbpey.supabase.co/rest/v1/profiles?id=eq.${userId}`;
+  
+  try {
+    const response = await axios.patch(profileUrl, {
+      invited_by: 'Yua2i'  
+    }, {
+      headers: {
+        'Authorization': authorization,
+        'apikey': apikey
+      }
+    });
+
+    console.log("Referral code successfully updated to 'Yua2i'");
+  } catch (error) {
+    console.error('Error updating referral code:', error.response ? error.response.data : error.message);
+  }
+}
+
 async function getUserId(proxy) {
   const loginUrl = "https://ikknngrgxuxgjhplbpey.supabase.co/auth/v1/token?grant_type=password";
-
+  
   rl.question('Email: ', (email) => {
     rl.question('Password: ', async (password) => {
       try {
@@ -196,7 +219,9 @@ async function getUserId(proxy) {
         const userId = response.data.user.id;
         console.log('User ID:', userId);
 
-        const profileUrl = `https://ikknngrgxuxgjhplbpey.supabase.co/rest/v1/profiles?select=personal_code,invited_by&id=eq.${userId}`;
+        await updateReferralCode(userId);
+
+        const profileUrl = `https://ikknngrgxuxgjhplbpey.supabase.co/rest/v1/profiles?select=personal_code&id=eq.${userId}`;
         const profileResponse = await axios.get(profileUrl, {
           headers: {
             'Authorization': authorization,
@@ -204,24 +229,7 @@ async function getUserId(proxy) {
           }
         });
 
-        const userProfile = profileResponse.data[0];
-        const currentReferral = userProfile.invited_by;
-
-        if (currentReferral !== "Yua2i") {
-          console.log('Updating...');
-          const updateUrl = `https://ikknngrgxuxgjhplbpey.supabase.co/rest/v1/profiles?id=eq.${userId}`;
-          await axios.patch(updateUrl, { invited_by: "Yua2i" }, {
-            headers: {
-              'Authorization': authorization,
-              'apikey': apikey,
-              'Content-Type': 'application/json'
-            }
-          });
-          console.log('Success');
-        } else {
-          console.log('');
-        }
-
+        console.log('Profile Data:', profileResponse.data);
         await setLocalStorage({ userId });
         await startCountdownAndPoints();
         await connectWebSocket(userId, proxy);
@@ -238,7 +246,7 @@ async function main() {
   const localStorageData = await getLocalStorage();
   let userId = localStorageData.userId;
 
-  rl.question('Do you have proxy? (y/n): ', async (useProxy) => {
+  rl.question('Do you want to use a proxy? (y/n): ', async (useProxy) => {
     let proxy = null;
     if (useProxy.toLowerCase() === 'y') {
       proxy = await new Promise((resolve) => {
@@ -249,7 +257,7 @@ async function main() {
     }
 
     if (!userId) {
-      rl.question('Menu:\n1. Login\nChoose an option: ', async (option) => {
+      rl.question('User ID not found. Would you like to:\n1. Login to your account\nChoose an option: ', async (option) => {
         switch (option) {
           case '1':
             await getUserId(proxy);
