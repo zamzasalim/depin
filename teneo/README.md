@@ -12,6 +12,7 @@
 - **AutoLogin**
 - **Auto Ping (setiap 15 menit)**
 - **Support Proxy**
+- **Auto Reconnect if websocket disconnect**
 ## Register Teneo
 - **Download [Ekstension](https://chromewebstore.google.com/detail/teneo-community-node/emcclcoaglgcpoognfiggmhnhgabppkm)**
 - **Open Ektension**
